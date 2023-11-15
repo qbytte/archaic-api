@@ -18,7 +18,18 @@ const db = new sqlite3.Database(process.env.DATABASE, (err) => {
 
 // Create a server object
 const server = http.createServer(async (req, res) => {
-
+    switch (req.url) {
+        case '/':
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.write(await fsp.readFile('./html/index.html'));
+            res.end();
+            break;
+        default:
+            res.writeHead(404, { 'Content-Type': 'text/html' });
+            res.write(await fsp.readFile('./html/404.html'));
+            res.end();
+            break;
+    }
 });
 
 // Start the server
