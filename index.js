@@ -44,6 +44,11 @@ const server = http.createServer(async (req, res) => {
             res.write(await fsp.readFile('./html/people.html'));
             res.end();
             break;
+        case '/people/add':
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.write(await fsp.readFile('./html/add.html'));
+            res.end();
+            break;
         case '/api/people':
             switch (req.method) {
                 case 'GET':
