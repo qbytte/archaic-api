@@ -49,6 +49,11 @@ const server = http.createServer(async (req, res) => {
             res.write(await fsp.readFile('./html/add.html'));
             res.end();
             break;
+        case '/people/delete':
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.write(await fsp.readFile('./html/delete.html'));
+            res.end();
+            break;
         case '/api/people':
             switch (req.method) {
                 case 'GET':
@@ -96,7 +101,7 @@ const server = http.createServer(async (req, res) => {
                     break;
                 case 'DELETE':
                     utils.bodyParser(req, res, async () => {
-                        db.run('DELETE FROM people WHERE id = ?', [req.body.id], (err) => {
+                        db.run('DELETE FROM people WHERE name = ?', [req.body.name], (err) => {
                             if (err) {
                                 res.writeHead(500, { 'Content-Type': 'application/json' });
                                 res.write(JSON.stringify({ error: err.message }));

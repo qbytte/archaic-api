@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete person</title>
+</head>
+<body>
+    <h1>Let's kick someone out, your call</h1>
+    <form action="submit" id="form">
+        <input type="text" id="name" placeholder="Name" />
+        <button type="submit">Submit</button>
+    </form>
+    <a href="http://localhost:3000/people">Back</a>
+    <script>
+        const form = document.getElementById("form");
+        const name = document.getElementById("name");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            if (name.value === "") {
+                alert("Please enter a name");
+                return;
+            }
+
+            const data = {
+                name: name.value,
+            };
+            const response = await fetch("http://localhost:3000/api/people", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+            const res = await response.json();
+            if (res.error) {
+                alert(res.error);
+            } else {
+                alert("Person deleted!");
+                window.location.replace("http://localhost:3000/people");
+            }
+        });
+    </script>
+</body>
+</html>
