@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>People</title>
+  </head>
+  <body>
+    <h1>These are the entries available on the database!</h1>
+    <div id="people"></div>
+  </body>
+  <script>
+    const peopleDiv = document.getElementById("people");
+
+    const getData = async () => {
+      const data = await fetch("http://localhost:3000/api/people", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const people = await data.json();
+
+      if (people.error) {
+        peopleDiv.innerHTML = `<p>There are no entries available</p>`;
+      } else {
+        people.map((item) => {
+          peopleDiv.innerHTML += `<p>${item.name}, ${item.age} años</p>`;
+        });
+        console.log(people);
+      }
+    };
+    getData();
+  </script>
+</html>
