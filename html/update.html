@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update person</title>
+  </head>
+  <body>
+    <h1>Let's make some corrections here</h1>
+    <form action="submit" id="form">
+      <input type="text" id="name" placeholder="Old name" />
+      <input type="text" id="newName" placeholder="New name" />
+      <input type="number" id="age" placeholder="New age" />
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+  <script>
+    const form = document.getElementById("form");
+    const name = document.getElementById("name");
+    const newName = document.getElementById("newName");
+    const age = document.getElementById("age");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (name.value === "" || newName.value === "" || age.value === "") {
+        alert("Please enter all the fields");
+        return;
+      }
+
+      const data = {
+        name: name.value,
+        newName: newName.value,
+        age: age.value,
+      };
+      const response = await fetch("http://localhost:3000/api/people", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const res = await response.json();
+      if (res.error) {
+        alert(res.error);
+      } else {
+        alert("Person updated!");
+        window.location.replace("http://localhost:3000/people");
+      }
+    });
+  </script>
+</html>

@@ -139,4 +139,4 @@ dist
 .pnp.*
 
 # dbs
-.db
+db/

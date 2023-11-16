@@ -7,8 +7,15 @@
   </head>
   <body>
     <h1>These are the entries available on the database!</h1>
-    <a href="http://localhost:3000/people/add">Add someone to the gang!</a>
-    <a href="http://localhost:3000/people/delete">Or let's kick someone out, your call</a>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <a href="http://localhost:3000/people/add">Add someone to the gang!</a>
+      <a href="http://localhost:3000/people/update"
+        >You can make corrections as well...</a
+      >
+      <a href="http://localhost:3000/people/delete"
+        >Or let's kick someone out, your call</a
+      >
+    </div>
     <div id="people"></div>
     <a href="http://localhost:3000/">Go home</a>
   </body>
@@ -29,7 +36,7 @@
         peopleDiv.innerHTML = `<p>There are no entries available</p>`;
       } else {
         people.map((item) => {
-          peopleDiv.innerHTML += `<p>${item.name}, ${item.age} años</p>`;
+          peopleDiv.innerHTML += `<p>${item.name}, ${item.age} years old</p>`;
         });
 
         console.log(people);
